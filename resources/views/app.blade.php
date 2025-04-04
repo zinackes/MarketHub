@@ -14,6 +14,13 @@
 
         <script src="https://kit.fontawesome.com/1e46e56962.js" crossorigin="anonymous"></script>
 
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh
