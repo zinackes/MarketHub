@@ -12,6 +12,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+        <script src="https://kit.fontawesome.com/1e46e56962.js" crossorigin="anonymous"></script>
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh
