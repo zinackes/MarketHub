@@ -2,26 +2,28 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SideBarLayout from "@/Layouts/SideBarLayout.jsx";
 import DashboardNavLink from "@/Components/DashboardNavLink.jsx";
 import Card from "@/Components/Card.jsx";
-import {BoxIcon} from "lucide-react";
+import {BoxIcon, ScanBarcode} from "lucide-react";
+import {
+    Package,
+    PlusSquare,
+    ShoppingCart,
+    PackageCheck,
+    PackageX,
+    BarChart,
+    Users,
+    Settings,
+    Store,
+    MessageCircleMore
+} from "lucide-react";
 import { Head } from '@inertiajs/react';
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
+import DashboardNavLinks from "@/Components/DashboardNavLinks.jsx";
 import CreateVendorForm from "@/Components/CreateVendorForm.jsx";
 import { usePage } from '@inertiajs/react';
 
-export default function Dashboard({products, vendor}, props) {
+export default function Dashboard({products, vendor, soldProducts}, props) {
     const { flash } = usePage().props;
 
-    let navLinks = [
-        {
-            id: 0,
-            text: "Dashboard",
-            icon: "fa-solid fa-house",
-            link: "/",
-
-        }
-    ]
-
-    console.log(vendor);
 
     return (
 
@@ -39,23 +41,28 @@ export default function Dashboard({products, vendor}, props) {
 
                 {vendor.length !== 0 && (
                     <>
-                        <SideBarLayout className="max-w-48">
-                            {navLinks.map(navlink =>
-                                <DashboardNavLink
-                                    key={navlink.id}
-                                    icon={navlink.icon}>
-                                    {navlink.text}
-                                </DashboardNavLink>
-                            )}
-                        </SideBarLayout>
+                        <div className="flex min-h-screen">
+                            <div className="w-64 bg-white border-r">
+                                <SideBarLayout>
+                                    <DashboardNavLinks/>
+                                </SideBarLayout>
+                            </div>
 
-                        <div className="min-w-screen min-h-screen p-5">
-                            <div className="flex flex-wrap">
-                                <Card
-                                    imgLink={<BoxIcon color="#fff" size={15} />}
-                                    number={products.length}
-                                    title="Vente totale"
-                                />
+                            <div className="flex-1 w-screen p-6 bg-gray-50">
+                                <div className="flex flex-wrap gap-4">
+                                    <Card
+                                        imgLink={<BoxIcon color="#fff" size={15}/>}
+                                        number={soldProducts.length}
+                                        bgImgColor="bg-orange-500"
+                                        title="Vente totale"
+                                    />
+                                    <Card
+                                        imgLink={<ScanBarcode color="#fff" size={15}/>}
+                                        number={products.length}
+                                        bgImgColor="bg-red-500"
+                                        title="Produits en stock"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </>
@@ -63,16 +70,17 @@ export default function Dashboard({products, vendor}, props) {
 
                 {vendor.length === 0 && (
                     <div className="h-screen w-screen flex items-center justify-center flex-col gap-10">
-                        <h1 className="text-6xl text-center uppercase font-bold">Il semblerait que vous <br/> n'ayez pas encore de boutique</h1>
+                        <h1 className="text-6xl text-center uppercase font-bold">Il semblerait que vous <br/> n'ayez
+                            pas encore de boutique</h1>
                         <CreateVendorForm>
 
                         </CreateVendorForm>
-                    </div>
-                )}
+                        </div>
+                    )}
 
 
-            </AuthenticatedLayout>
-        </>
+                    </AuthenticatedLayout>
+                    </>
 
-    );
-}
+                    );
+                }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/vendor-create', [VendorController::class, 'store'])->name('vendor.store');
+    Route::get('/dashboard/products', [DashboardController::class, 'products'])->name('dashboard.products');
+    Route::post('/products-create', [ProductController::class, 'store'])->name('product.store');
 });
 
 Route::middleware('auth')->group(function () {

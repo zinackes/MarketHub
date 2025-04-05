@@ -29,7 +29,7 @@ export default function CreateVendorForm({ className = '' }){
     };
 
 
-    const confirmUserDeletion = () => {
+    const confirmVendorCreation = () => {
         setconfirmingVendorCreation(true);
     };
     const closeModal = () => {
@@ -41,7 +41,7 @@ export default function CreateVendorForm({ className = '' }){
     return (
         <section className={`space-y-6 ${className}`}>
 
-            <PrimaryButton onClick={confirmUserDeletion}>
+            <PrimaryButton onClick={confirmVendorCreation}>
                 Créer ma boutique
             </PrimaryButton>
 
@@ -52,10 +52,7 @@ export default function CreateVendorForm({ className = '' }){
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600">
-                        Once your account is deleted, all of its resources and
-                        data will be permanently deleted. Please enter your
-                        password to confirm you would like to permanently delete
-                        your account.
+                        Commencez à vendre en quelques clics. Renseignez les informations ci-dessous pour configurer votre boutique et la rendre accessible à vos futurs clients.
                     </p>
 
                     <div className="mt-5">
@@ -109,7 +106,7 @@ export default function CreateVendorForm({ className = '' }){
                             name="phone"
                             className="mt-1 block w-full"
                             autoComplete="phone"
-                            type="phone"
+                            type="tel"
                             value={data.phone}
                             onChange={(e) => setData('phone', e.target.value)}
                             required

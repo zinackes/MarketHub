@@ -1,12 +1,15 @@
+import { Link } from '@inertiajs/react';
 
-export default function DashboardNavLink({children, className, props, icon}){
-    return(
-        <div
+export default function DashboardNavLink({ children, className = '', icon, link, isActive, ...props }) {
+    return (
+        <Link
+            href={link}
             {...props}
-             className={'rounded flex p-3 w-full cursor-pointer items-center justify-center gap-3 hover:bg-gray-200 duration-300 ' + ' ' + className}
+            className={`rounded flex p-3 w-full cursor-pointer items-center justify-start gap-3 hover:bg-gray-200 duration-300
+            ${isActive ? 'bg-gray-200/80' : ''} ${className}`}
         >
-            <i className={icon}></i>
-            <a href="">{children}</a>
-        </div>
-    )
+            {icon}
+            <span>{children}</span>
+        </Link>
+    );
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -12,13 +14,43 @@ class DashboardController extends Controller
 {
     public function index(){
 
-        $products = Product::where('vendor_id', auth()->id())->get();
+        $vendor = Vendor::where('user_id', auth()->id())->first();
 
-        $vendor = Vendor::where('user_id', auth()->id())->get();
+        $products = Product::where('vendor_id', $vendor->id)->get();
+
+        $vendorId = auth()->id();
+
+        $soldProducts = OrderItem::whereHas('product', function ($query) use ($vendorId) {
+            $query->where('vendor_id', $vendorId);
+        })
+            ->whereHas('order', function ($query) {
+                $query->whereIn('status', ['shipped', 'delivered']);
+            })
+            ->with(['product', 'order'])
+            ->get();
 
         return Inertia::render('Dashboard', [
             'products' => $products,
-            'vendor' => $vendor
+            'vendor' => $vendor,
+            'soldProducts' => $soldProducts,
         ]);
     }
+
+    public function products(){
+        $vendor = Vendor::where('user_id', auth()->id())->first();
+
+        if (!$vendor) {
+            return Inertia::render('DashboardProducts', [
+                'products' => [],
+            ]);
+        }
+
+        $products = Product::where('vendor_id', $vendor->id)->get()->toArray();
+
+
+        return Inertia::render('DashboardProducts', [
+            'products' => $products,
+        ]);
+    }
+
 }
