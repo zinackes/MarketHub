@@ -7,10 +7,43 @@ import TextInput from "@/Components/TextInput.jsx";
 import InputError from "@/Components/InputError.jsx";
 import SecondaryButton from "@/Components/SecondaryButton.jsx";
 import DashboardNavLink from "@/Components/DashboardNavLink.jsx";
+import SelectInput from "@/Components/SelectInput.jsx";
 
 export default function CreateProductFormButton({className='', children, ...props}){
 
     const [confirmingProfuctCreation, setconfirmingProfuctCreation] = useState(false);
+
+
+    const OPTIONS = [
+        {
+            value: 1,
+            label: 'Vêtements',
+        },
+        {
+            value: 2,
+            label: "Électronique"
+        },
+        {
+            value: 3,
+            label: "Accessoires"
+        },
+        {
+            value: 4,
+            label: "Maison & Meubles"
+        },
+        {
+            value: 5,
+            label: "Jouets"
+        },
+        {
+            value: 6,
+            label: "Beauté & Soins"
+        },
+        {
+            value: 7,
+            label: "Alimentation"
+        }
+    ]
 
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         name:'',
@@ -113,6 +146,19 @@ export default function CreateProductFormButton({className='', children, ...prop
 
                         <InputError message={errors.description} className="mt-2"/>
 
+                    </div>
+
+                    <div className="mt-5">
+
+                        <InputLabel value="Catégorie"/>
+
+                        <SelectInput
+                            options={OPTIONS}
+                            name="category_id"
+                            value={data.category_id}
+                            onChange={(e) => setData('category_id', e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div className="mt-5">

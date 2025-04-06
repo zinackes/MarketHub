@@ -19,7 +19,9 @@ class DashboardController extends Controller
 
         $userRole = auth()->user()->role;
 
-        if($userRole === "vendor"){
+        $hasStore = Vendor::where('user_id', auth()->id())->first();
+
+        if($userRole === "vendor" && $hasStore){
             $vendor = Vendor::where('user_id', auth()->id())->first();
 
 

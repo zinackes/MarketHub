@@ -13,7 +13,7 @@ export default function CreateVendorForm({ className = '' }){
 
     const [confirmingVendorCreation, setconfirmingVendorCreation] = useState(false);
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         shop_name:'',
         shop_description: '',
         phone:'',
@@ -24,7 +24,8 @@ export default function CreateVendorForm({ className = '' }){
         e.preventDefault();
 
         post(route('vendor.store'), {
-            onFinish: () => reset(),
+            onFinish: () => clearErrors(),
+            onSuccess: () => reset(),
         });
     };
 

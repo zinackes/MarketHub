@@ -13,6 +13,17 @@ class VendorController extends Controller
             'shop_description' => 'required|string',
             'phone' => 'required|integer',
             'address' => 'required',
+        ], [
+            'shop_name.required' => 'Le nom de la boutique est requis.',
+            'shop_name.string' => 'Le nom de la boutique doit être une chaîne de caractères.',
+
+            'shop_description.required' => 'La description de la boutique est requise.',
+            'shop_description.string' => 'La description doit être une chaîne de caractères.',
+
+            'phone.required' => 'Le numéro de téléphone est requis.',
+            'phone.integer' => 'Le numéro de téléphone doit contenir uniquement des chiffres.',
+
+            'address.required' => 'L’adresse de la boutique est requise.',
         ]);
 
         $vendor = Vendor::create([

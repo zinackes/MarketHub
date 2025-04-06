@@ -18,7 +18,19 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'stock_quantity' => 'required|numeric',
+            'category_id' => 'required',
+        ], [
+            'name.required' => 'Le nom du produit est requis.',
+            'name.string' => 'Le nom du produit doit être une chaîne de caractères.',
+            'description.required' => 'La description du produit est requise.',
+            'description.string' => 'La description du produit doit être une chaîne de caractères.',
+            'price.required' => 'Le prix du produit est requis.',
+            'price.numeric' => 'Le prix du produit doit être un nombre.',
+            'stock_quantity.required' => 'La quantité en stock est requise.',
+            'stock_quantity.numeric' => 'La quantité en stock doit être un nombre.',
+            'category_id.required' => 'La catégorie du produit est requise.',
         ]);
+
 
         $product = Product::create([
             'vendor_id' => $vendor->id,
@@ -27,6 +39,7 @@ class ProductController extends Controller
             'description' => $request['description'],
             'price' => $request['price'],
             'stock_quantity' => $request['stock_quantity'],
+            'category_id' => $request['category_id'],
             'image' => "null",
         ]);
 

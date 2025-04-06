@@ -22,6 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/vendor-create', [VendorController::class, 'store'])->name('vendor.store');
     Route::get('/dashboard/products', [DashboardController::class, 'products'])->name('dashboard.products');
     Route::post('/products-create', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
 });
 
 Route::middleware('auth')->group(function () {

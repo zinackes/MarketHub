@@ -40,7 +40,7 @@ export default function Dashboard({products, vendor, soldProducts, userRole}, pr
                             <div className="flex-1 w-screen p-6 bg-gray-50">
                                 <div className="flex flex-wrap gap-4">
                                     <Card
-                                        imgLink={<BoxIcon color="#fff" size={15}/>}
+                                        icon={<BoxIcon color="#fff" size={15}/>}
                                         number={soldProducts.length}
                                         bgImgColor="bg-orange-500"
                                         maxIconSize={5}
@@ -48,7 +48,8 @@ export default function Dashboard({products, vendor, soldProducts, userRole}, pr
                                         title="Vente totale"
                                     />
                                     <Card
-                                        imgLink={<ScanBarcode color="#fff" size={15}/>}
+                                        icon={<ScanBarcode color="#fff" size={15}/>}
+                                        maxIconSize={5}
                                         number={products.length}
                                         bgImgColor="bg-red-500"
                                         title="Produits en stock"
