@@ -2,19 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SideBarLayout from "@/Layouts/SideBarLayout.jsx";
 import DashboardNavLink from "@/Components/DashboardNavLink.jsx";
 import Card from "@/Components/Card.jsx";
-import {BoxIcon, ScanBarcode} from "lucide-react";
-import {
-    Package,
-    PlusSquare,
-    ShoppingCart,
-    PackageCheck,
-    PackageX,
-    BarChart,
-    Users,
-    Settings,
-    Store,
-    MessageCircleMore
-} from "lucide-react";
+import {BoxIcon, ScanBarcode, Package} from "lucide-react";
 import { Head } from '@inertiajs/react';
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import DashboardNavLinks from "@/Components/DashboardNavLinks.jsx";
@@ -55,6 +43,8 @@ export default function Dashboard({products, vendor, soldProducts, userRole}, pr
                                         imgLink={<BoxIcon color="#fff" size={15}/>}
                                         number={soldProducts.length}
                                         bgImgColor="bg-orange-500"
+                                        maxIconSize={5}
+                                        cardSize="w-2/12"
                                         title="Vente totale"
                                     />
                                     <Card
@@ -82,9 +72,17 @@ export default function Dashboard({products, vendor, soldProducts, userRole}, pr
 
                 {userRole === "customer" && (
                     <div className="flex w-screen h-screen items-center justify-center">
-                        <CardLink>
-                            Mes commandes
-                        </CardLink>
+                        <Card
+                            icon={<Package color="#fff"/>}
+                            className="!rounded-xl"
+                            pageLink="/"
+                            maxIconSize={7}
+                            bgImgColor="bg-orange-500"
+                            cardSize="w-4/12"
+                            number="Mes commandes"
+                            title="Retrouvez ici l’historique de vos achats, le suivi de vos livraisons et les détails de chaque commande."
+                        >
+                        </Card>
                     </div>
                 )}
 
