@@ -14,25 +14,39 @@ class DashboardController extends Controller
 {
     public function index(){
 
-        $vendor = Vendor::where('user_id', auth()->id())->first();
 
-        $products = Product::where('vendor_id', $vendor->id)->get();
+        $userId = auth()->id();
 
-        $vendorId = auth()->id();
+        $userRole = auth()->user()->role;
 
-        $soldProducts = OrderItem::whereHas('product', function ($query) use ($vendorId) {
-            $query->where('vendor_id', $vendorId);
-        })
-            ->whereHas('order', function ($query) {
-                $query->whereIn('status', ['shipped', 'delivered']);
+        if($userRole === "vendor"){
+            $vendor = Vendor::where('user_id', auth()->id())->first();
+
+
+            $soldProducts = OrderItem::whereHas('product', function ($query) use ($userId) {
+                $query->where('vendor_id', $userId);
             })
-            ->with(['product', 'order'])
-            ->get();
+                ->whereHas('order', function ($query) {
+                    $query->whereIn('status', ['shipped', 'delivered']);
+                })
+                ->with(['product', 'order'])
+                ->get();
+
+
+            $products = Product::where('vendor_id', $vendor->id)->get();
+        }
+        else{
+            $soldProducts = [];
+            $products = [];
+            $vendor = [];
+        }
+
 
         return Inertia::render('Dashboard', [
             'products' => $products,
             'vendor' => $vendor,
             'soldProducts' => $soldProducts,
+            'userRole' => $userRole,
         ]);
     }
 

@@ -6,6 +6,7 @@ import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import InputError from "@/Components/InputError.jsx";
 import SecondaryButton from "@/Components/SecondaryButton.jsx";
+import DashboardNavLink from "@/Components/DashboardNavLink.jsx";
 
 export default function CreateProductFormButton({className='', children, ...props}){
 
@@ -41,11 +42,25 @@ export default function CreateProductFormButton({className='', children, ...prop
     };
 
     return (
-        <section className={`space-y-6 ${className}`}>
+        <section className={`space-y-6 ${className} ${props.isNavLink === true ? 'w-full' : ''}`}>
 
-            <PrimaryButton className={props.primaryButtonClassName} onClick={confirmProductCreation}>
-                {children}
-            </PrimaryButton>
+            {props.isNavLink === true ? (
+                <DashboardNavLink
+                    icon={props.navLinksIcon}
+                    onClick={confirmProductCreation}
+                    isButton={true}
+                >
+                    {children}
+                </DashboardNavLink>
+            ) : (
+                <PrimaryButton
+                    className={props.primaryButtonClassName}
+                    onClick={confirmProductCreation}
+                >
+                    {children}
+                </PrimaryButton>
+            )}
+
 
             <Modal show={confirmingProfuctCreation} onClose={closeModal}>
                 <form className="p-6" onSubmit={submit}>

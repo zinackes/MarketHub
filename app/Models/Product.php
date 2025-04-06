@@ -12,6 +12,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Vendor', 'vendor_id');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     protected $fillable = [
         'vendor_id',
         'name',

@@ -20,8 +20,9 @@ import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import DashboardNavLinks from "@/Components/DashboardNavLinks.jsx";
 import CreateVendorForm from "@/Components/CreateVendorForm.jsx";
 import { usePage } from '@inertiajs/react';
+import CardLink from "@/Components/CardLink.jsx";
 
-export default function Dashboard({products, vendor, soldProducts}, props) {
+export default function Dashboard({products, vendor, soldProducts, userRole}, props) {
     const { flash } = usePage().props;
 
 
@@ -68,7 +69,7 @@ export default function Dashboard({products, vendor, soldProducts}, props) {
                     </>
                 )}
 
-                {vendor.length === 0 && (
+                {vendor.length === 0 && userRole === "vendor" && (
                     <div className="h-screen w-screen flex items-center justify-center flex-col gap-10">
                         <h1 className="text-6xl text-center uppercase font-bold">Il semblerait que vous <br/> n'ayez
                             pas encore de boutique</h1>
@@ -77,6 +78,15 @@ export default function Dashboard({products, vendor, soldProducts}, props) {
                         </CreateVendorForm>
                         </div>
                     )}
+
+
+                {userRole === "customer" && (
+                    <div className="flex w-screen h-screen items-center justify-center">
+                        <CardLink>
+                            Mes commandes
+                        </CardLink>
+                    </div>
+                )}
 
 
                     </AuthenticatedLayout>
