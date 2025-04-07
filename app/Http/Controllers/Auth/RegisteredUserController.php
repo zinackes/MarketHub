@@ -34,11 +34,7 @@ class RegisteredUserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'phone' => 'required|numeric',
-            'address' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'area' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
+            'role' => 'required|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -46,17 +42,13 @@ class RegisteredUserController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'city' => $request->city,
-            'area' => $request->area,
-            'country' => $request->country,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
-        auth()->login($user);
+        Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
     }

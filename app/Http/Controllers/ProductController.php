@@ -46,10 +46,4 @@ class ProductController extends Controller
         return to_route('dashboard.products')->with('success', "{$product->name} a été ajouté à votre liste de produits");
 
     }
-
-
-    public function update(Request $request, $product_id){
-
-        dd($product_id);
-    }
 }

@@ -20,10 +20,6 @@ let TableTitles = [
         id: 2,
         text: "Quantité en stock"
     },
-    {
-        id: 3,
-        text: '',
-    }
 ]
 
 export default function DashboardProducts({products}){

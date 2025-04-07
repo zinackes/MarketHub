@@ -8,17 +8,12 @@ class Vendor extends Model
 {
     protected $table = 'vendors';
 
-    protected $guard = 'vendor';
-
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'address',
+        'user_id',
         'shop_name',
         'shop_description',
-        'status',
-        'password',
+        'phone',
+        'address',
+        'status'
     ];
 }
