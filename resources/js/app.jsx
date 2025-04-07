@@ -12,6 +12,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
 
 if (csrfToken) {
+    // Assure-toi que ce header est appliqué
     axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 } else {
