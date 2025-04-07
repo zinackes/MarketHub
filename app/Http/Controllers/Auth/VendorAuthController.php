@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,21 +14,12 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RegisteredUserController extends Controller
+class VendorAuthController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): Response
-    {
-        return Inertia::render('Auth/Register');
+    public function showLoginForm(){
+        return Inertia::render('Vendor/Login');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -37,16 +29,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $vendor = Vendor::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
+            'status' => 'active',
             'password' => Hash::make($request->password),
         ]);
 
         //event(new Registered($user));
 
-        Auth::guard('web')->login($user);
+        Auth::guard('vendor')->login($vendor);
 
         return redirect(route('dashboard', absolute: false));
     }
@@ -55,7 +48,7 @@ class RegisteredUserController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('web')->attempt($credentials)) {
+        if (Auth::guard('vendor')->attempt($credentials)) {
             return redirect()->intended('/dashboard');
         }
 
@@ -64,7 +57,7 @@ class RegisteredUserController extends Controller
 
     public function logout()
     {
-        Auth::guard('web')->logout();
+        Auth::guard('vendor')->logout();
         return redirect('/');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\VendorAuthController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -16,6 +17,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::prefix('vendor')->group(function () {
+    Route::get('/login', [VendorAuthController::class, 'showLoginForm'])->name('vendor.login');
+    Route::post('/login', [VendorAuthController::class, 'store']);
+});
+
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -6,14 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vendor extends Model
 {
-    protected $table = 'vendors';
+    use Notifiable;
+
+    protected $guard = 'vendor';
 
     protected $fillable = [
-        'user_id',
-        'shop_name',
-        'shop_description',
-        'phone',
-        'address',
-        'status'
+        'first_name',
+        'last_name',
+        'email',
+        'status',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 }

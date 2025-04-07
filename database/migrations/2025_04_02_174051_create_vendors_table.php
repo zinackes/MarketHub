@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')
-                ->on('users')->onDelete('cascade');
-            $table->string('shop_name');
-            $table->text('shop_description');
-            $table->string('phone');
-            $table->string('address');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->enum('status', ['active', 'suspended'])->default('active');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->timestamps();
         });
     }
