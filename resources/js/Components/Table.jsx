@@ -1,12 +1,16 @@
-export default function Table({ titles, content }) {
+import { Ellipsis } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import Dropdown from '@/Components/Dropdown';
+import CreateProductFormButton from "@/Components/CreateProductFormButton.jsx";
 
+export default function Table({ titles, content }) {
     if (!Array.isArray(content) || content.length === 0) {
         return (
-            <div className="mt-6 w-full max-w-full overflow-x-auto rounded-lg shadow-sm bg-white">
+            <div className="mt-6 w-full max-w-full overflow-visible rounded-lg shadow-sm bg-white">
                 <table className="min-w-full table-auto border-collapse">
                     <thead className="bg-gray-100 text-gray-700">
                     <tr>
-                        {titles.map(title => (
+                        {titles.map((title) => (
                             <th
                                 key={title.id}
                                 scope="col"
@@ -15,12 +19,13 @@ export default function Table({ titles, content }) {
                                 {title.text}
                             </th>
                         ))}
+                        <th className="px-6 py-4 text-left font-semibold border-b border-gray-200">Actions</th>
                     </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                     <tr>
-                        <td colSpan={titles.length} className="text-center py-4">
-                            Aucune donnée disponible.
+                        <td colSpan={titles.length + 1} className="text-center py-4">
+                            Aucun produit en vente.
                         </td>
                     </tr>
                     </tbody>
@@ -30,32 +35,55 @@ export default function Table({ titles, content }) {
     }
 
     return (
-        <div className="mt-6 w-full max-w-full overflow-x-auto rounded-lg">
+        <div className="mt-6 w-full max-w-full overflow-visible rounded-lg bg-white shadow-sm">
             <table className="w-full table-auto border-collapse rounded-lg">
                 <thead className="bg-gray-200 text-gray-700">
                 <tr>
-                    {titles.map(title => (
+                    {titles.map((title) => (
                         <th
                             key={title.id}
                             scope="col"
-                            className="px-6 py-4 text-left font-semibold border-b border-gray-200 whitespace-nowrap uppercase
-                           "
+                            className="px-6 py-4 text-left font-semibold border-b border-gray-200 whitespace-nowrap uppercase"
                         >
                             {title.text}
                         </th>
                     ))}
                 </tr>
                 </thead>
-                <tbody className="bg-transparent">
+                <tbody className="bg-transparent overflow-visible">
                 {content.map((product) => (
-                    <tr key={product.id} className="border-b border-gray-300">
+                    <tr key={product.id} className="border-b border-gray-300 overflow-visible">
                         <th scope="row" className="px-6 py-4 text-left">{product.name}</th>
                         <td className="px-6 py-4">{product.price}</td>
                         <td className="px-6 py-4">{product.stock_quantity}</td>
+                        <td className="px-6 py-4 relative ml-auto">
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                        <span className="inline-flex rounded-md cursor-pointer">
+                                            <button
+                                                type="button"
+                                                className="inline-flex items-center rounded-md border border-transparent px-2 py-2 text-sm leading-4 text-gray-500 transition duration-150 ease-in-out hover:bg-gray-200 focus:outline-none"
+                                            >
+                                                <Ellipsis className="h-5 w-5" />
+                                            </button>
+                                        </span>
+                                </Dropdown.Trigger>
+
+                                <Dropdown.Content>
+                                    <CreateProductFormButton>Modifier</CreateProductFormButton>
+                                    <Dropdown.Link
+                                        as="button"
+                                        method="delete"
+                                        className="text-red-600"
+                                    >
+                                        Supprimer
+                                    </Dropdown.Link>
+                                </Dropdown.Content>
+                            </Dropdown>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
-
             </table>
         </div>
     );

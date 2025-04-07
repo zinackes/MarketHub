@@ -17,13 +17,9 @@ class DashboardController extends Controller
 
         $userId = auth()->id();
 
-        $userRole = auth()->user()->role;
+        $isVendor = Auth::guard('vendor')->check();
 
-        $hasStore = Vendor::where('user_id', auth()->id())->first();
-
-        if($userRole === "vendor" && $hasStore){
-            $vendor = Vendor::where('user_id', auth()->id())->first();
-
+        if($isVendor){
 
             $soldProducts = OrderItem::whereHas('product', function ($query) use ($userId) {
                 $query->where('vendor_id', $userId);
@@ -35,20 +31,18 @@ class DashboardController extends Controller
                 ->get();
 
 
-            $products = Product::where('vendor_id', $vendor->id)->get();
+            $products = Product::where('vendor_id', $userId)->get();
         }
         else{
             $soldProducts = [];
             $products = [];
-            $vendor = [];
         }
 
 
         return Inertia::render('Dashboard', [
             'products' => $products,
-            'vendor' => $vendor,
             'soldProducts' => $soldProducts,
-            'userRole' => $userRole,
+            'isVendor' => $isVendor,
         ]);
     }
 
