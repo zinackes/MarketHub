@@ -6,7 +6,7 @@ import CreateProductFormButton from "@/Components/CreateProductFormButton.jsx";
 export default function DashboardNavLinks() {
     const { url } = usePage();
 
-    console.log("url " + url);
+    console.log(url);
 
     const navLinks = [
         {
@@ -79,7 +79,7 @@ export default function DashboardNavLinks() {
                         key={navlink.id}
                         icon={navlink.icon}
                         link={navlink.link}
-                        isActive={url === navlink.link}
+                        isActive={url === navlink.fakeLink}
                     >
                         {navlink.text}
                     </DashboardNavLink>
