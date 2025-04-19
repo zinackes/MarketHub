@@ -1,7 +1,8 @@
 import { usePage } from '@inertiajs/react';
 import { LayoutGrid, Package, PlusSquare, ShoppingCart, PackageCheck, PackageX, BarChart, Users, Settings, MessageCircleMore } from 'lucide-react';
 import DashboardNavLink from "@/Components/DashboardNavLink.jsx";
-import CreateProductFormButton from "@/Components/CreateProductFormButton.jsx";
+import CreateProduct from "@/Components/ProductManager.jsx";
+import ProductManager from "@/Components/ProductManager.jsx";
 
 export default function DashboardNavLinks() {
     const { url } = usePage();
@@ -71,9 +72,9 @@ export default function DashboardNavLinks() {
         <>
             {navLinks.map(navlink => (
                 navlink.id === 3 ? (
-                    <CreateProductFormButton key={navlink.id} isNavLink={true} navLinksIcon={navlink.icon}>
-                        Ajouter un produit
-                    </CreateProductFormButton>
+                    <ProductManager mode="create">
+                        <ProductManager.NavLink key={navlink.id} icon={navlink.icon}>Ajouter un produit</ProductManager.NavLink>
+                    </ProductManager>
                 ) : (
                     <DashboardNavLink
                         key={navlink.id}

@@ -5,7 +5,6 @@ export default function DashboardNavLink({ children, className = '', icon, link,
         <>
             {isButton && (
                 <button
-                    onClick={props.onClick}
                     {...props}
                     className={`rounded flex p-3 w-full cursor-pointer items-center justify-start gap-3 hover:bg-gray-200 duration-300
                     ${isActive ? 'bg-gray-200/80' : ''} ${className}`}

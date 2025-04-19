@@ -4,8 +4,9 @@ import DashboardNavLinks from "@/Components/DashboardNavLinks.jsx";
 import {BoxIcon} from "lucide-react";
 import Table from "@/Components/Table.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
-import CreateProductFormButton from "@/Components/CreateProductFormButton.jsx";
+import CreateProduct from "@/Components/ProductManager.jsx";
 import {usePage} from "@inertiajs/react";
+import ProductManager from "@/Components/ProductManager.jsx";
 
 let TableTitles = [
     {
@@ -54,10 +55,9 @@ export default function DashboardProducts({products}){
                         <div className="flex-1 p-6 bg-gray-50">
                             <div className="flex">
                                 <h1 className="text-3xl font-bold">Vos produits</h1>
-                                <CreateProductFormButton
-                                    className="ml-auto "
-                                    primaryButtonClassName="!bg-blue-500 hover:!bg-blue-600"
-                                >Ajouter un produit</CreateProductFormButton>
+                                <ProductManager mode="create">
+                                    <ProductManager.NavLink>Ajouter un produit</ProductManager.NavLink>
+                                </ProductManager>
                             </div>
                             <Table
                                 titles={TableTitles}

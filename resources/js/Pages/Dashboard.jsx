@@ -30,25 +30,26 @@ export default function Dashboard({products, vendor, soldProducts, userRole}, pr
 
                 {vendor.length !== 0 && (
                     <>
-                        <div className="flex min-h-screen">
+                        <div className="flex min-h-screen w-full">
                             <div className="w-64 bg-white border-r">
                                 <SideBarLayout>
                                     <DashboardNavLinks/>
                                 </SideBarLayout>
                             </div>
 
-                            <div className="flex-1 w-screen p-6 bg-gray-50">
-                                <div className="flex flex-wrap gap-4">
+                            <div className="flex-1 p-6 bg-gray-50">
+                                <div className="grid grid-cols-4 gap-4">
                                     <Card
                                         icon={<BoxIcon color="#fff" size={15}/>}
+                                        className="col-span-1"
                                         number={soldProducts.length}
                                         bgImgColor="bg-orange-500"
                                         maxIconSize={5}
-                                        cardSize="w-2/12"
                                         title="Vente totale"
                                     />
                                     <Card
                                         icon={<ScanBarcode color="#fff" size={15}/>}
+                                        className="col-span-1"
                                         maxIconSize={5}
                                         number={products.length}
                                         bgImgColor="bg-red-500"
