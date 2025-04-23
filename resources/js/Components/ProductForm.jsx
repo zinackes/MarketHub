@@ -8,7 +8,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SelectInput from '@/Components/SelectInput';
 import SecondaryButton from "@/Components/SecondaryButton.jsx";
 
-const ProductForm = ({ product, onSubmit, onCancel, errors, processing, mode, OPTIONS }) => {
+const ProductForm = ({ product, onSubmit, onCancel, errors, processing, mode, OPTIONS, className }) => {
     const { data, setData, post, put, reset, clearErrors } = useForm({
         name: product?.name || '',
         description: product?.description || '',
@@ -30,60 +30,70 @@ const ProductForm = ({ product, onSubmit, onCancel, errors, processing, mode, OP
     };
 
     return (
-        <form onSubmit={onSubmit} className="space-y-6">
-            <div>
+        <form onSubmit={onSubmit} className={`w-full flex flex-col items-center gap-3 ${className}`}>
+            <div className="w-full">
                 <InputLabel htmlFor="name">Nom du produit</InputLabel>
                 <TextInput
+                    className="w-full text-sm"
                     id="name"
                     name="name"
                     value={data.name}
                     onChange={handleChange}
+                    placeholder="Le nom du produit..."
                     required
                 />
                 <InputError message={errors.name} />
             </div>
 
-            <div>
+            <div className="w-full">
                 <InputLabel htmlFor="description">Description</InputLabel>
                 <TextInput
+                    className="w-full px-3 text-sm border py-2"
+                    type="textarea"
                     id="description"
                     name="description"
                     value={data.description}
                     onChange={handleChange}
+                    placeholder="La description du produit..."
                     required
                 />
                 <InputError message={errors.description} />
             </div>
 
-            <div>
+            <div className="w-full">
                 <InputLabel htmlFor="price">Prix</InputLabel>
                 <TextInput
+                    className="w-full text-sm"
                     id="price"
                     name="price"
                     type="number"
                     value={data.price}
                     onChange={handleChange}
+                    placeholder="Le prix du produit..."
                     required
                 />
                 <InputError message={errors.price} />
             </div>
 
-            <div>
+            <div className="w-full">
                 <InputLabel htmlFor="stock_quantity">Quantité en stock</InputLabel>
                 <TextInput
+                    className="w-full text-sm"
                     id="stock_quantity"
                     name="stock_quantity"
                     type="number"
                     value={data.stock_quantity}
                     onChange={handleChange}
+                    placeholder="La quantité en stock..."
                     required
                 />
                 <InputError message={errors.stock_quantity} />
             </div>
 
-            <div>
+            <div className="w-full">
                 <InputLabel htmlFor="category_id">Catégorie</InputLabel>
                 <SelectInput
+                    className="w-full text-sm"
                     id="category_id"
                     name="category_id"
                     value={data.category_id}

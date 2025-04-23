@@ -94,6 +94,7 @@ const ProductManager = ({ mode = 'create', product = null, children = [] }) => {
                             product={product}
                             mode={mode}
                             OPTIONS={OPTIONS}
+                            className="px-6 py-3"
                             onSubmit={submit}
                             errors={errors}
                             processing={processing}
