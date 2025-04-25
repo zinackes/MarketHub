@@ -1,29 +1,12 @@
 // components/ProductForm.jsx
-import React, { useEffect } from 'react';
-import { useForm } from '@inertiajs/react';
+import React from 'react';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SelectInput from '@/Components/SelectInput';
-import SecondaryButton from "@/Components/SecondaryButton.jsx";
 
-const ProductForm = ({ product, onSubmit, onCancel, errors, processing, mode, OPTIONS, className }) => {
-    const { data, setData, post, put, reset, clearErrors } = useForm({
-        name: product?.name || '',
-        description: product?.description || '',
-        price: product?.price || '',
-        stock_quantity: product?.stock_quantity || '',
-        category_id: product?.category_id || '',
-    });
-
-    useEffect(() => {
-        // Clear errors and reset form on mode change (e.g., switching from edit to create)
-        return () => {
-            clearErrors();
-            reset();
-        };
-    }, [mode, reset, clearErrors]);
+const ProductForm = ({ data, setData, onSubmit, errors, processing, mode, OPTIONS, className }) => {
 
     const handleChange = (e) => {
         setData(e.target.name, e.target.value);
@@ -49,7 +32,6 @@ const ProductForm = ({ product, onSubmit, onCancel, errors, processing, mode, OP
                 <InputLabel htmlFor="description">Description</InputLabel>
                 <TextInput
                     className="w-full px-3 text-sm border py-2"
-                    type="textarea"
                     id="description"
                     name="description"
                     value={data.description}

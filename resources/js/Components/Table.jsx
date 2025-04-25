@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 import Dropdown from '@/Components/Dropdown';
 import ProductManager from "@/Components/ProductManager.jsx";
 
-export default function Table({ titles, content }) {
+export default function Table({ titles, bigTitle,  content }) {
     if (!Array.isArray(content) || content.length === 0) {
         return (
             <div className="mt-6 w-full max-w-full overflow-visible rounded-lg shadow-sm bg-white">
@@ -35,8 +35,15 @@ export default function Table({ titles, content }) {
     }
 
     return (
-        <div className="grid">
-            <div className="mt-6 w-full max-w-full overflow-visible rounded-lg bg-white shadow-sm">
+        <div className="grid rounded-lg">
+            <div className="bg-white py-5 px-6 rounded-t-xl border flex">
+                <h2 className="!font-bold text-xl">{bigTitle}</h2>
+
+                <ProductManager mode="create">
+                    <ProductManager.Link className="!ml-auto !w-auto rounded-lg">Ajouter un produit</ProductManager.Link>
+                </ProductManager>
+            </div>
+            <div className=" w-full max-w-full overflow-visible rounded-lg bg-white shadow-sm">
                 <table className="w-full table-auto border-collapse rounded-lg">
                     <thead className="bg-gray-200 text-gray-700">
                     <tr>
@@ -76,7 +83,7 @@ export default function Table({ titles, content }) {
                                         </ProductManager>
 
                                         <ProductManager mode="delete" product={product}>
-                                            <ProductManager.Link>Supprimer</ProductManager.Link>
+                                            <ProductManager.Link className="text-red-600">Supprimer</ProductManager.Link>
                                         </ProductManager>
                                     </Dropdown.Content>
                                 </Dropdown>

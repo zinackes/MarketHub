@@ -23,7 +23,17 @@ const ProductManager = ({ mode = 'create', product = null, children = [] }) => {
         { value: 7, label: 'Alimentation' },
     ];
 
-    const { data, setData, post, put, delete: destroy, processing, errors, reset, clearErrors } = useForm({
+    const {
+        data,
+        setData,
+        post,
+        put,
+        delete: destroy,
+        processing,
+        errors,
+        reset,
+        clearErrors
+    } = useForm({
         name: product?.name || '',
         description: product?.description || '',
         price: product?.price || '',
@@ -83,15 +93,13 @@ const ProductManager = ({ mode = 'create', product = null, children = [] }) => {
                     <div className="flex flex-col items-center">
                         <div className="flex justify-between items-center w-full px-6 py-3 border-b ">
                             <h2 className="!font-medium text-lg">{isCreate ? 'Créer un produit' : 'Modifier le produit'}</h2>
-                            <button
-                                className="px-1 py-1 border rounded-lg"
-                                onClick={closeModal}
-                            >
-                                <X color="#99a1b7"/>
+                            <button className="px-1 py-1 border rounded-lg" onClick={closeModal}>
+                                <X color="#99a1b7" />
                             </button>
                         </div>
                         <ProductForm
-                            product={product}
+                            data={data}
+                            setData={setData}
                             mode={mode}
                             OPTIONS={OPTIONS}
                             className="px-6 py-3"
@@ -106,17 +114,17 @@ const ProductManager = ({ mode = 'create', product = null, children = [] }) => {
     );
 };
 
-ProductManager.Link = ({ children, ...props }) => (
+ProductManager.Link = ({ children, className, ...props }) => (
     <button
         {...props}
         type="button"
-        className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 focus:outline-none"
+        className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 focus:outline-none ${className}`}
     >
         {children}
     </button>
 );
 
-ProductManager.NavLink = ({children, icon , ...props}) => {
+ProductManager.NavLink = ({ children, icon, ...props }) => {
     return (
         <DashboardNavLink
             isButton={true}
@@ -126,7 +134,7 @@ ProductManager.NavLink = ({children, icon , ...props}) => {
         >
             Ajouter un produit
         </DashboardNavLink>
-    )
-}
+    );
+};
 
 export default ProductManager;

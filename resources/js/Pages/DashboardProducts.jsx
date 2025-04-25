@@ -61,6 +61,7 @@ export default function DashboardProducts({products}){
                             </div>
                             <Table
                                 titles={TableTitles}
+                                bigTitle={"Vos produits"}
                                 content={products}
                             >
                             </Table>
