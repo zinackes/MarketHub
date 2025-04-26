@@ -45,13 +45,13 @@ export default function Table({ titles, bigTitle,  content }) {
             </div>
             <div className=" w-full max-w-full overflow-visible rounded-lg bg-white shadow-sm">
                 <table className="w-full table-auto border-collapse rounded-lg">
-                    <thead className="bg-gray-200 text-gray-700">
+                    <thead className="text-gray-500 bg-gray-100/80">
                     <tr>
                         {titles.map((title) => (
                             <th
                                 key={title.id}
                                 scope="col"
-                                className="px-6 py-4 text-left font-semibold border-b border-gray-200 whitespace-nowrap uppercase"
+                                className="px-6 py-4 text-left font-semibold border-b border-r border-gray-200 whitespace-nowrap"
                             >
                                 {title.text}
                             </th>

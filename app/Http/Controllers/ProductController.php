@@ -78,4 +78,18 @@ class ProductController extends Controller
         return to_route('dashboard.products')->with('success', "{$product->name} a été bien été modifié");
 
     }
+
+    public function destroy($product_id){
+
+
+        $product = Product::where('id', $product_id)->first();
+
+        $product_data = [
+            'name' => $product->name,
+        ];
+
+        $product->delete();
+
+        return to_route('dashboard.products')->with('success', "{$product_data['name']} a été bien été supprimé");
+    }
 }

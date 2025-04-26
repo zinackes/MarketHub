@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import CreateProduct from "@/Components/ProductManager.jsx";
 import {usePage} from "@inertiajs/react";
 import ProductManager from "@/Components/ProductManager.jsx";
+import Success from "@/flash/success.jsx";
 
 let TableTitles = [
     {
@@ -29,7 +30,6 @@ let TableTitles = [
 
 export default function DashboardProducts({products}){
 
-
     const { flash } = usePage().props;
 
     return(
@@ -37,10 +37,9 @@ export default function DashboardProducts({products}){
         <>
 
             {flash.success && (
-                <div className="bg-green-100 border border-green-400 text-green-800 px-4 py-2 rounded mb-4">
-                    ✅ {flash.success}
-                </div>
+                <Success flash={flash} />
             )}
+
 
             <AuthenticatedLayout>
 

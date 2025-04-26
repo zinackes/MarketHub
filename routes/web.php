@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/products', [DashboardController::class, 'products'])->name('dashboard.products');
     Route::post('/product/create', [ProductController::class, 'store'])->name('product.store');
     Route::put('/product/update/{product_id}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/destroy/{product_id}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::get('/dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
 });
 
