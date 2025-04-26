@@ -43,28 +43,39 @@ export default function Table({ titles, bigTitle,  content }) {
                     <ProductManager.Link className="!ml-auto !w-auto rounded-lg">Ajouter un produit</ProductManager.Link>
                 </ProductManager>
             </div>
-            <div className=" w-full max-w-full overflow-visible rounded-lg bg-white shadow-sm">
-                <table className="w-full table-auto border-collapse rounded-lg">
-                    <thead className="text-gray-500 bg-gray-100/80">
+            <div className=" w-full max-w-full overflow-visible bg-white rounded-b-xl border-b border-l border-r">
+                <table className="w-full table-auto border-collapse">
+                    <thead className="text-gray-500 bg-gray-50">
                     <tr>
-                        {titles.map((title) => (
-                            <th
-                                key={title.id}
-                                scope="col"
-                                className="px-6 py-4 text-left font-semibold border-b border-r border-gray-200 whitespace-nowrap"
-                            >
-                                {title.text}
-                            </th>
-                        ))}
+                        {titles.map((title, index) => {
+                            const isEmpty = title.text === '';
+                            const isLast = index === titles.length - 1;
+
+                            return (
+                                <th
+                                    key={title.id}
+                                    scope="col"
+                                    className={`px-5 py-3 text-left font-semibold border-b border-gray-200 whitespace-nowrap
+                                    ${isEmpty ? '!w-[20px]' : ''} ${!isLast ? 'border-r' : ''}`}
+                                >
+                                    {title.text}
+                                </th>
+                            );
+                        })}
                     </tr>
+
                     </thead>
                     <tbody className="bg-transparent overflow-visible">
-                    {content.map((product) => (
-                        <tr key={product.id} className="border-b border-gray-300 overflow-visible">
-                            <th scope="row" className="px-6 py-4 text-left">{product.name}</th>
-                            <td className="px-6 py-4">{product.price}</td>
-                            <td className="px-6 py-4">{product.stock_quantity}</td>
-                            <td className="px-6 py-4 relative ml-auto">
+                    {content.map((product, index) => {
+
+                        const isLast = index === content.length - 1;
+
+                        return (
+                        <tr key={product.id} className={`overflow-visible ${!isLast ? 'border-b' : ''}`}>
+                            <th scope="row" className="px-5 py-3 text-left border-r">{product.name}</th>
+                            <td className="px-5 py-3 text-left border-r">{product.price}</td>
+                            <td className="px-5 py-3 text-left border-r">{product.stock_quantity}</td>
+                            <td className="px-5 py-3 relative ml-auto">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md cursor-pointer">
@@ -83,13 +94,15 @@ export default function Table({ titles, bigTitle,  content }) {
                                         </ProductManager>
 
                                         <ProductManager mode="delete" product={product}>
-                                            <ProductManager.Link className="text-red-600">Supprimer</ProductManager.Link>
+                                            <ProductManager.Link
+                                                className="text-red-600">Supprimer</ProductManager.Link>
                                         </ProductManager>
                                     </Dropdown.Content>
                                 </Dropdown>
                             </td>
                         </tr>
-                    ))}
+                        );
+                    })}
                     </tbody>
                 </table>
             </div>

@@ -52,12 +52,6 @@ export default function DashboardProducts({products}){
                         </div>
 
                         <div className="flex-1 p-6 bg-gray-50">
-                            <div className="flex">
-                                <h1 className="text-3xl font-bold">Vos produits</h1>
-                                <ProductManager mode="create">
-                                    <ProductManager.NavLink>Ajouter un produit</ProductManager.NavLink>
-                                </ProductManager>
-                            </div>
                             <Table
                                 titles={TableTitles}
                                 bigTitle={"Vos produits"}
