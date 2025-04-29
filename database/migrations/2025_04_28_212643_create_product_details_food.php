@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('food_type')->nullable();
-            $table->string('brand')->nullable();
             $table->string('weight_volume')->nullable();
             $table->date('expiration_date')->nullable();
             $table->boolean('is_organic')->default(false);

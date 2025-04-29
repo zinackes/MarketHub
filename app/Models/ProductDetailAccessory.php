@@ -16,6 +16,10 @@ class ProductDetailAccessory extends Model
         'type',
         'color',
         'material',
-        'color',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

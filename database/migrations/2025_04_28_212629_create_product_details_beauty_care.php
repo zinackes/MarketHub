@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('product_type')->nullable();
-            $table->string('brand')->nullable();
             $table->string('volume')->nullable();
             $table->string('main_ingredients')->nullable();
             $table->string('target')->nullable();

@@ -17,9 +17,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('material')->nullable();
             $table->string('dimensions')->nullable();
-            $table->string('color')->nullable();
             $table->string('condition')->nullable();
-            $table->string('brand')->nullable();
             $table->timestamps();
         });
     }

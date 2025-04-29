@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
+            $table->string('brand')->nullable();
             $table->integer('stock_quantity');
             $table->string('image');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
