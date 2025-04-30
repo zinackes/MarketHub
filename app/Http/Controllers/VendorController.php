@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class VendorController extends Controller
 {
     public function store(Request $request){
+
+
         $request->validate([
             'shop_name' => 'required|string',
             'shop_description' => 'required|string',
@@ -36,6 +38,6 @@ class VendorController extends Controller
         ]);
 
 
-        return redirect()->back()->with('success', 'Votre boutique à bien été créee');
+        return back(303)->with('success', 'Votre boutique a bien été créée');
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -40,6 +42,26 @@ class ProductController extends Controller
             ];
         }
     }
+
+
+    public function chooseCategory(){
+
+        $categories = Category::all();
+
+
+        return Inertia::render('Products/Index/ChooseCategory', [
+            'categories' => $categories,
+        ]);
+    }
+
+    public function create(Request $request){
+
+        $slug = $request->query('category');
+
+        return Inertia::render('Products/Index/ProductPageCreation');
+    }
+
+
     public function store(Request $request){
 
 

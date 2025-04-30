@@ -18,7 +18,7 @@ return new class extends Migration
                 ->on('users')->onDelete('cascade');
             $table->string('shop_name');
             $table->text('shop_description');
-            $table->string('phone');
+            $table->integer('phone');
             $table->string('address');
             $table->enum('status', ['active', 'suspended'])->default('active');
             $table->timestamps();

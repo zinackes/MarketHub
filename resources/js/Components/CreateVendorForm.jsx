@@ -107,7 +107,7 @@ export default function CreateVendorForm({ className = '' }){
                             name="phone"
                             className="mt-1 block w-full"
                             autoComplete="phone"
-                            type="tel"
+                            type="text"
                             value={data.phone}
                             onChange={(e) => setData('phone', e.target.value)}
                             required

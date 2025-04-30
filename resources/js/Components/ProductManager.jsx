@@ -2,7 +2,7 @@
 import React, { useState, cloneElement } from 'react';
 import Modal from './Modal';
 import ProductForm from './ProductForm';
-import { useForm } from '@inertiajs/react';
+import { useForm, router } from '@inertiajs/react';
 import { X } from 'lucide-react';
 import DashboardNavLink from "@/Components/DashboardNavLink.jsx";
 
@@ -72,6 +72,9 @@ const ProductManager = ({ mode = 'create', product = null, children = [] }) => {
     return (
         <>
             {cloneElement(children, { onClick: openModal })}
+            {cloneElement(children, { onClick: () => {
+                    router.visit(route('product.choose_category'));
+                } })}
 
             <Modal show={showModal} onClose={closeModal} >
                 {isDelete ? (

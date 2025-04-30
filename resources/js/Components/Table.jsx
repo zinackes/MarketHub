@@ -6,23 +6,37 @@ import ProductManager from "@/Components/ProductManager.jsx";
 export default function Table({ titles, bigTitle,  content }) {
     if (!Array.isArray(content) || content.length === 0) {
         return (
-            <div className="mt-6 w-full max-w-full overflow-visible rounded-lg shadow-sm bg-white">
-                <table className="min-w-full table-auto border-collapse">
-                    <thead className="bg-gray-100 text-gray-700">
+        <div className="grid rounded-lg">
+            <div className="bg-white py-5 px-6 rounded-t-xl border flex">
+                <h2 className="!font-bold text-xl">{bigTitle}</h2>
+
+                <ProductManager mode="create">
+                    <ProductManager.Link className="!ml-auto !w-auto rounded-lg">Ajouter un produit</ProductManager.Link>
+                </ProductManager>
+            </div>
+            <div className=" w-full max-w-full overflow-visible bg-white rounded-b-xl border-b border-l border-r">
+                <table className="w-full table-auto border-collapse">
+                    <thead className="text-gray-500 bg-gray-50">
                     <tr>
-                        {titles.map((title) => (
-                            <th
-                                key={title.id}
-                                scope="col"
-                                className="px-6 py-4 text-left font-semibold border-b border-gray-200 whitespace-nowrap"
-                            >
-                                {title.text}
-                            </th>
-                        ))}
-                        <th className="px-6 py-4 text-left font-semibold border-b border-gray-200">Actions</th>
+                        {titles.map((title, index) => {
+                            const isEmpty = title.text === '';
+                            const isLast = index === titles.length - 1;
+
+                            return (
+                                <th
+                                    key={title.id}
+                                    scope="col"
+                                    className={`px-5 py-3 text-left font-semibold border-b border-gray-200 whitespace-nowrap
+                                    ${isEmpty ? '!w-[20px]' : ''} ${!isLast ? 'border-r' : ''}`}
+                                >
+                                    {title.text}
+                                </th>
+                            );
+                        })}
                     </tr>
+
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="bg-transparent overflow-visible">
                     <tr>
                         <td colSpan={titles.length + 1} className="text-center py-4">
                             Aucun produit en vente.
@@ -31,6 +45,7 @@ export default function Table({ titles, bigTitle,  content }) {
                     </tbody>
                 </table>
             </div>
+        </div>
         );
     }
 
