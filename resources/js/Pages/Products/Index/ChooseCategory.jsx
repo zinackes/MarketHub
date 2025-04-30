@@ -22,8 +22,9 @@ export default function ChooseCategory({categories}) {
         e.preventDefault();
 
         const slug = categories[data.category_id-1].slug;
+        const id = data.category_id-1;
         const url = route('product.create');
-        router.visit(`${url}/?category=${slug}`);
+        router.visit(`${url}?category=${slug}&id=${id}`);
     };
 
     return (

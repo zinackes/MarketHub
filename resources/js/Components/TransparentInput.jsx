@@ -20,8 +20,9 @@ export default forwardRef(function TransparentInput(
             {...props}
             type={InputType}
             className={[
-                'bg-transparent border-none focus:!outline-none focus:ring-transparent' +
-                className
+                'bg-transparent border-none focus:!outline-none focus:ring-transparent',
+                className,
+                type === "title" && 'font-bold text-3xl'
             ].filter(Boolean).join(' ')}
             ref={localRef}
         />

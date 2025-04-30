@@ -14,7 +14,6 @@ class ProductDetailAccessory extends Model
     protected $fillable = [
         'product_id',
         'type',
-        'color',
         'material',
     ];
 

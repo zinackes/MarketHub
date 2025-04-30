@@ -57,8 +57,12 @@ class ProductController extends Controller
     public function create(Request $request){
 
         $slug = $request->query('category');
+        $id = $request->query('id');
 
-        return Inertia::render('Products/Index/ProductPageCreation');
+
+        return Inertia::render('Products/Index/ProductPageCreation', [
+            'category_id' => $id,
+        ]);
     }
 
 
