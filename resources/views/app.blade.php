@@ -14,7 +14,7 @@
 
         <script src="https://kit.fontawesome.com/1e46e56962.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles.css') }}">
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 

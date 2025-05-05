@@ -4,6 +4,7 @@ export const getProductForm = (product = {}) => ({
     slug: product.slug || '',
     description: product.description || '',
     price: product.price || '',
+    brand: product.brand || '',
     stock_quantity: product.stock_quantity || '',
     category_id: product.category_id || '',
 });
