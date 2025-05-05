@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('model')->nullable();
-            $table->string('condition')->nullable();
+            $table->string('condition')->nullable(); // etat du produit
             $table->string('warranty')->nullable(); // garantie
             $table->string('capacity')->nullable();
             $table->string('device_type')->nullable();

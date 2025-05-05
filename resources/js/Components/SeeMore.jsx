@@ -55,6 +55,7 @@ const Button = ({ children }) => {
         <button
             className="flex items-center absolute bottom-0 w-full justify-center z-10"
             onClick={handleClick}
+            type='button'
         >
             {open ? (
                 <ChevronUp />

@@ -62,12 +62,12 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Index/ProductPageCreation', [
             'category_id' => $id,
+            'slug' => $slug,
         ]);
     }
 
 
     public function store(Request $request){
-
 
         $request->validate($this->rules, $this->messages);
 
@@ -75,14 +75,10 @@ class ProductController extends Controller
             'vendor_id' => $this->vendor->id,
             'name' => $request['name'],
             'slug' => Str::slug($request['name']),
-            'description' => $request['description'],
-            'price' => $request['price'],
-            'stock_quantity' => $request['stock_quantity'],
             'category_id' => $request['category_id'],
-            'image' => "null",
         ]);
 
-        return to_route('dashboard.products')->with('success', "{$product->name} a été ajouté à votre liste de produits");
+        return $product;
 
     }
 

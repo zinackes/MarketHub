@@ -34,7 +34,8 @@ export default forwardRef(function TransparentInput(
                     className={[
                         'bg-transparent border-none !p-0 focus:!outline-none focus:ring-transparent',
                         className,
-                        textType === "title" && 'font-bold text-5xl'
+                        textType === "title" && 'font-bold text-5xl',
+                        textType === "gray" && 'text-gray-600'
                     ].filter(Boolean).join(' ')}
                     ref={localRef}
                 />

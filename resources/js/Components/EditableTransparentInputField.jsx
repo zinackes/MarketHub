@@ -1,7 +1,8 @@
 import TransparentInput from "@/Components/TransparentInput.jsx";
 
 
-export default function EditableTransparentInputField({condition, children, value, name, handleChange, type, textType, placeholder, inputClassName, className}) {
+export default function EditableTransparentInputField({condition, children, value, name, handleChange,
+                                                          type, textType, placeholder, inputClassName, className, ...props}) {
 
     return condition ? (
                 <span className={className}>{children}</span>
@@ -15,7 +16,7 @@ export default function EditableTransparentInputField({condition, children, valu
                     type={type}
                     placeholder={placeholder}
                     textType={textType}
-                    required
+                    {...props}
                 >
 
                 </TransparentInput>
