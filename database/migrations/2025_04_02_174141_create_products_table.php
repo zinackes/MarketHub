@@ -16,11 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vendor_id');
             $table->foreign('vendor_id')->references('id')
                 ->on('vendors')->onDelete('cascade');
-            $table->string('name');
-            $table->string('slug');
-            $table->text('description')->nullable();
             $table->string('brand')->nullable();
-            $table->string('image');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();
         });

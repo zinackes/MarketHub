@@ -19,12 +19,7 @@ class Product extends Model
 
     protected $fillable = [
         'vendor_id',
-        'name',
-        'slug',
-        'description',
-        'price',
-        'stock_quantity',
+        'brand',
         'category_id',
-        'image',
     ];
 }

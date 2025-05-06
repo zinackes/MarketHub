@@ -22,7 +22,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -31,6 +31,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard/products', [DashboardController::class, 'products'])->name('dashboard.products');
     Route::get('/product/choose_category', [ProductController::class, 'chooseCategory'])->name('product.choose_category');
+    Route::get('/product/{slug}/{product_id}', [ProductController::class, 'show'])
+        ->where('slug', '^(?!create$)[a-zA-Z0-9\-]+') // Exclut "create"
+        ->name('product.show');
+
+
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create'); // Page to display form creation of a product
 
     Route::post('/product/store/clothings', [ProductDetailClothingController::class, 'store'])->name('product.clothings.store');
@@ -44,7 +49,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/product/store/home-furniture', [ProductDetailHomeFurnitureController::class, 'store'])->name('product.home.furniture.store');
 
 
-    //Route::post('/product/create', [ProductController::class, 'store'])->name('product.store');
     Route::put('/product/update/{product_id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/destroy/{product_id}', [ProductController::class, 'destroy'])->name('product.destroy');
 

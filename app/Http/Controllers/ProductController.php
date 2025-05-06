@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductDetailAccessory;
+use App\Models\ProductDetailBeautyCare;
+use App\Models\ProductDetailClothing;
+use App\Models\ProductDetailElectronics;
+use App\Models\ProductDetailFood;
+use App\Models\ProductDetailHomeFurniture;
+use App\Models\ProductDetailToys;
+use App\Models\ProductVariant;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Crypt;
 
 class ProductController extends Controller
 {
@@ -22,24 +31,72 @@ class ProductController extends Controller
             $this->vendor = Vendor::where('user_id', auth()->id())->first();
 
             $this->rules = [
-                'name' => 'required|string',
-                'description' => 'required|string',
-                'price' => 'required|numeric',
-                'stock_quantity' => 'required|numeric',
+                'brand' => 'required|string',
                 'category_id' => 'required',
             ];
 
             $this->messages = [
-                'name.required' => 'Le nom du produit est requis.',
-                'name.string' => 'Le nom du produit doit être une chaîne de caractères.',
-                'description.required' => 'La description du produit est requise.',
-                'description.string' => 'La description du produit doit être une chaîne de caractères.',
-                'price.required' => 'Le prix du produit est requis.',
-                'price.numeric' => 'Le prix du produit doit être un nombre.',
-                'stock_quantity.required' => 'La quantité en stock est requise.',
-                'stock_quantity.numeric' => 'La quantité en stock doit être un nombre.',
+                'brand.required' => 'Le nom de la marque est requis.',
+                'brand.string' => 'La marque doit être une chaîne de caractères.',
                 'category_id.required' => 'La catégorie du produit est requise.',
             ];
+        }
+    }
+
+    public function findProductDetails($product_id){
+        $models = [
+            ProductDetailHomeFurniture::class,
+            ProductDetailBeautyCare::class,
+            ProductDetailFood::class,
+            ProductDetailToys::class,
+            ProductDetailAccessory::class,
+            ProductDetailClothing::class,
+            ProductDetailElectronics::class,
+        ];
+
+        foreach ($models as $model) {
+            $result = $model::where('product_id', $product_id)->first();
+
+            if($result){
+                return $result;
+            }
+        }
+
+        return null;
+    }
+
+
+    public function show($slug, $product_id){
+
+        try {
+
+            $product = Product::find($product_id);
+
+            $productVariants = ProductVariant::where('product_id', $product_id)->get();
+
+            $productVariant = ProductVariant::where('product_id', $product_id)->first();
+
+            $productDetail = $this->findProductDetails($product_id);
+
+            if (!$product) {
+                return redirect()->route('home')->with('error', 'Produit introuvable.');
+            }
+
+            //$product->increment('views');
+
+            $productWithVariants = [
+                'product' => $product,
+                'variant' => $productVariant
+            ];
+
+            return Inertia::render('Products/ShowProduct', [
+                'product' => $productWithVariants,
+                'productDetails' => $productDetail,
+                'category_id' => $product->category_id,
+                'productVariants' => $productVariants,
+            ]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->route('home')->with('error', 'Le produit est introuvable ou l\'ID est corrompu.');
         }
     }
 
@@ -49,7 +106,7 @@ class ProductController extends Controller
         $categories = Category::all();
 
 
-        return Inertia::render('Products/Index/ChooseCategory', [
+        return Inertia::render('Products/ChooseCategory', [
             'categories' => $categories,
         ]);
     }
@@ -60,25 +117,43 @@ class ProductController extends Controller
         $id = $request->query('id');
 
 
-        return Inertia::render('Products/Index/ProductPageCreation', [
+        return Inertia::render('Products/ProductPageCreation', [
             'category_id' => $id,
             'slug' => $slug,
+            'product' => null,
+            'productDetails' => null,
         ]);
     }
 
 
     public function store(Request $request){
 
-        $request->validate($this->rules, $this->messages);
 
-        $product = Product::create([
-            'vendor_id' => $this->vendor->id,
-            'name' => $request['name'],
-            'slug' => Str::slug($request['name']),
-            'category_id' => $request['category_id'],
-        ]);
+            $product = Product::create([
+                'vendor_id' => $this->vendor->id,
+                'brand' => $request->brand,
+                'category_id' => $request->category_id,
+            ]);
 
-        return $product;
+            $productVariant = ProductVariant::create([
+                'product_id' => $product->id,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'description' => $request->description,
+                'color' => $request->color,
+                'price' => $request->price,
+                'stock_quantity' => $request->stock_quantity,
+                'sku' => null,
+                'image'=> null
+            ]);
+
+        $fullProduct = array_merge(
+            $product->toArray(),
+            $productVariant->toArray()
+        );
+
+
+        return $fullProduct;
 
     }
 

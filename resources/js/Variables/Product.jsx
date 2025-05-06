@@ -1,147 +1,162 @@
 // Renvoie le formulaire produit de base avec les données passées
 export const getProductForm = (product = {}) => ({
-    name: product.name || '',
-    slug: product.slug || '',
-    description: product.description || '',
-    price: product.price || '',
-    brand: product.brand || '',
-    stock_quantity: product.stock_quantity || '',
-    category_id: product.category_id || '',
+    name: product?.variant.name || '',
+    slug: product?.variant.slug || '',
+    color: product?.variant.color || '',
+    description: product?.variant.description || '',
+    price: product?.variant.price || '',
+    brand: product?.product.brand || '',
+    stock_quantity: product?.variant.stock_quantity || '',
+    category_id: product?.product.category_id || '',
 });
 
 export const getProductDetailForm = (productDetails = {}) => ([
     {
-        size: productDetails.size || '',
-        material: productDetails.material || '',
-        gender: productDetails.gender || '',
-        season: productDetails.season || '',
-        type: productDetails.type || '',
+        size: productDetails?.size || '',
+        material: productDetails?.material || '',
+        gender: productDetails?.gender || '',
+        season: productDetails?.season || '',
+        type: productDetails?.type || '',
     },
     {
-        model: productDetails.model || '',
-        condition: productDetails.condition || '',
-        warranty: productDetails.warranty || '',
-        capacity: productDetails.capacity || '',
-        device_type: productDetails.device_type || '',
+        model: productDetails?.model || '',
+        condition: productDetails?.condition || '',
+        warranty: productDetails?.warranty || '',
+        capacity: productDetails?.capacity || '',
+        device_type: productDetails?.device_type || '',
     },
     {
-        type: productDetails.type || '',
-        material: productDetails.material || '',
+        type: productDetails?.type || '',
+        material: productDetails?.material || '',
     },
     {
-        type: productDetails.type || '',
-        material: productDetails.material || '',
-        dimensions: productDetails.dimensions || '',
-        condition: productDetails.condition || '',
+        type: productDetails?.type || '',
+        material: productDetails?.material || '',
+        dimensions: productDetails?.dimensions || '',
+        condition: productDetails?.condition || '',
     },
     {
-        age_recommendation: productDetails.age_recommendation || '',
-        toy_type: productDetails.toy_type || '',
-        material: productDetails.material || '',
-        dimensions: productDetails.dimensions || '',
-        gender: productDetails.gender || '',
+        age_recommendation: productDetails?.age_recommendation || '',
+        toy_type: productDetails?.toy_type || '',
+        material: productDetails?.material || '',
+        dimensions: productDetails?.dimensions || '',
+        gender: productDetails?.gender || '',
     },
     {
-        product_type: productDetails.product_type || '',
-        volume: productDetails.volume || '',
-        main_ingredients: productDetails.main_ingredients || '',
-        target: productDetails.target || '',
+        product_type: productDetails?.product_type || '',
+        volume: productDetails?.volume || '',
+        main_ingredients: productDetails?.main_ingredients || '',
+        target: productDetails?.target || '',
     },
     {
-        food_type: productDetails.food_type || '',
-        weight_volume: productDetails.weight_volume || '',
-        expiration_date: productDetails.expiration_date || '',
-        is_organic: productDetails.is_organic || '',
-        allergens: productDetails.allergens || '',
+        food_type: productDetails?.food_type || '',
+        weight_volume: productDetails?.weight_volume || '',
+        expiration_date: productDetails?.expiration_date || '',
+        is_organic: productDetails?.is_organic || '',
+        allergens: productDetails?.allergens || '',
     }
 ]);
 
-export const electronics = [
+
+export const getElectronics = (productDetails = {}) => ([
     {
         id: 1,
         label: 'Modèle',
         name: 'model',
         placeholder: 'Entrez le modèle exact de votre produit',
+        value: productDetails?.model || ''
     },
     {
         id: 2,
         label: 'État',
         name: 'condition',
         placeholder: "Indiquez l'état du produit (neuf, reconditionné, usagé...)",
+        value: productDetails?.condition || ''
     },
     {
         id: 3,
         label: 'Garantie',
         name: 'warranty',
         placeholder: 'Durée de la garantie de votre produit (en mois ou années)',
+        value: productDetails?.warranty || ''
     },
     {
         id: 4,
         label: 'Capacité',
         name: 'capacity',
         placeholder: 'Capacité de votre produit (ex : 256Go, 500L...)',
+        value: productDetails?.capacity || ''
     },
     {
         id: 5,
         label: "Type d'appareil",
         name: 'device_type',
         placeholder: 'Spécifiez le type d\'appareil (ex : téléphone, ordinateur, etc.)',
+        value: productDetails?.device_type || ''
     }
-];
+]);
 
-export const clothings = [
+export const getClothings = (productDetails = {}) => ( [
     {
         id: 0,
         label: "Taille",
         name: "size",
         placeholder: "Exemple : S, M, L, XL, 38...",
+        value: productDetails?.size || '',
     },
     {
         id: 1,
         label: "Matière",
         name: "material",
         placeholder: "Indiquez le tissu ou matériau (coton, cuir, laine, etc.)",
+        value: productDetails?.material || ''
     },
     {
         id: 2,
         label: "Genre",
         name: "gender",
         placeholder: "Indiquez pour quel genre le vêtement est destiné (homme, femme, unisexe)",
+        value: productDetails?.gender || ''
     },
     {
         id: 3,
         label: "Saison",
         name: "season",
         placeholder: "Saison adaptée pour ce vêtement (été, hiver, toutes saisons...)",
+        value: productDetails?.season || ''
     },
     {
         id: 4,
         label: "Type de vêtement",
         name: "type",
         placeholder: "Exemple : Pantalon, Veste, Robe, T-shirt...",
+        value: productDetails?.type || ''
     },
-];
+]);
 
-export const accesories = [
+export const getAccessories = (productDetails = {}) => ([
     {
         id: 0,
         label: "Type d'accessoire",
         name: "type",
         placeholder: "Entrez le type d'accessoire (sac, montre, ceinture...)",
+        value: productDetails?.type || ''
     },
     {
         id: 1,
         label: "Matière",
         name: "material",
         placeholder: "Spécifiez le matériau (cuir, métal, tissu, etc.)",
+        value: productDetails?.material || ''
     },
     {
         id: 2,
         label: "Genre",
         name: "gender",
         placeholder: "Indiquez pour quel genre l'accessoire est destiné (homme, femme, unisexe)",
+        value: productDetails?.gender || ''
     },
-];
+]);
 
 export const homeFurniture = [
     {

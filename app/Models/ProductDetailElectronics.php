@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductDetailToy extends Model
+class ProductDetailElectronics extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_details_toy';
+    protected $table = 'product_details_electronics';
 
     protected $fillable = [
         'product_id',
-        'age_recommendation',
-        'toy_type',
-        'material',
-        'dimensions',
-        'gender'
+        'model',
+        'condition',
+        'warranty',
+        'capacity',
+        'device_type'
     ];
 
     public function product()
