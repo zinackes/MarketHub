@@ -2,9 +2,10 @@ import TransparentInput from "@/Components/TransparentInput.jsx";
 import { useForm } from "@inertiajs/react";
 import SeeMoreButton from "@/Components/SeeMore.jsx";
 import SeeMore from "@/Components/SeeMore.jsx";
-import { getElectronics, getClothings, getAccessories, toys, foodProducts, beautyProducts, homeFurniture } from "@/Variables/Product.jsx";
+import { getElectronics, getClothings, getAccessories, getToys, getFoods, getBeautyCares, getHomeFurnitures } from "@/Variables/Product.jsx";
 import { frenchToEnglishColors } from "@/Variables/Colors.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
 export default function ProductPageLayout({
                                               category_id,
@@ -19,101 +20,108 @@ export default function ProductPageLayout({
                                               productDetails,
                                               ...props
                                           }) {
-    const handleChange = (e) => {
-        setData(e.target.name, e.target.value);
-    };
-
+    const handleChange = (e) => setData(e.target.name, e.target.value);
     const [color, setColor] = useState("");
 
+    useEffect(() => {
+        setColor(product.color);
+    }, [product]);
 
-    const getEnglishColor = (frenchColor) => {
-        return frenchToEnglishColors[frenchColor.toLowerCase()] || frenchColor;
-    };
+    const handleAddToCart = () => {
+
+    }
+
+    const handleCheckout = () => {
+
+    }
+
+    const getEnglishColor = (frenchColor) =>
+        frenchToEnglishColors[frenchColor?.toLowerCase()] || frenchColor;
 
     return (
         <div className="flex flex-1 items-stretch justify-evenly">
-            <div className="w-1/3">
+            {/* Image */}
+            <div className="w-full md:w-1/3">
                 <img
                     src="/assets/box.png"
-                    alt="Image"
-                    className="w-full h-auto max-h-96 object-contain"
+                    alt="Produit"
+                    className="w-full h-auto rounded-xl shadow-md object-contain"
                 />
             </div>
+
+            {/* Détails */}
             <div className="flex flex-col w-1/2 gap-7">
-                <h1 className="w-full border-b border-gray-300">
+                {/* Titre */}
+                <h1 className="text-4xl font-bold border-b pb-3 border-gray-200">
                     {isShowing ? (
-                        <span  className="font-bold text-5xl">{product.name}</span>
+                        <span>{product.name}</span>
                     ) : (
                         <TransparentInput
                             id="name"
                             name="name"
                             value={data?.name}
                             onChange={handleChange}
-                            className="w-full"
+                            className="w-full text-3xl font-bold"
                             type="textarea"
-                            placeholder="Le titre de votre produit"
+                            placeholder="Titre du produit"
                             textType="title"
                         />
                     )}
                 </h1>
 
-                <div>
-                    <h2 className="flex items-center">
-                        {isShowing ? (
-                            <span className="text-xl">{product.price} €</span>
-                        ) : (
-                            <>
-                                <TransparentInput
-                                    id="price"
-                                    name="price"
-                                    value={data.price}
-                                    onChange={handleChange}
-                                    className="h-full text-xl"
-                                    type="number"
-                                    placeholder="Prix du produit"
-                                />
-                                <span className="text-3xl">€</span>
-                            </>
-                        )}
-                    </h2>
-                </div>
-
-                <div>
-                    <h3 className="font-medium mr-4 flex gap-3">Couleur :</h3>
+                {/* Prix */}
+                <div className="text-2xl font-semibold text-green-600 flex items-center">
                     {isShowing ? (
-                        <span className="text-gray-500">{product.color}</span>
+                        <span>{product.price} €</span>
                     ) : (
                         <>
                             <TransparentInput
-                                id="color"
-                                name="color"
-                                value={data.color}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    setColor(e.target.value);
-                                }}
-                                className="flex-1"
-                                type="text"
-                                placeholder="La couleur de votre produit"
+                                id="price"
+                                name="price"
+                                value={data.price}
+                                onChange={handleChange}
+                                className="w-1/2 text-xl"
+                                type="number"
+                                placeholder="Prix"
                             />
-                            {color && (
-                                <div
-                                    className="ml-2 p-4 max-w-6 border-2 rounded-md cursor-pointer"
-                                    style={{ backgroundColor: getEnglishColor(color) }}
-                                ></div>
-                            )}
+                            <span className="ml-2">€</span>
                         </>
                     )}
                 </div>
 
-                <SeeMore
-                    className="flex flex-col gap-3"
-                    maxHeight={200}
-                >
-                    <div className="flex">
-                        <h3 className="font-medium w-1/6 mr-4">Marque</h3>
+                {/* Couleur */}
+                <div className="flex items-center gap-4">
+                    <h3 className="font-bold text-gray-700">Couleur :</h3>
+                    {isShowing ? (
+                        <span className="text-gray-600">{product.color}</span>
+                    ) : (
+                        <TransparentInput
+                            id="color"
+                            name="color"
+                            value={data.color}
+                            onChange={(e) => {
+                                handleChange(e);
+                                setColor(e.target.value);
+                            }}
+                            className="w-1/2"
+                            type="text"
+                            placeholder="Couleur"
+                        />
+                    )}
+                    {color && (
+                        <div
+                            className="w-6 h-6 rounded border shadow"
+                            style={{ backgroundColor: getEnglishColor(color) }}
+                        />
+                    )}
+                </div>
+
+                {/* Informations supplémentaires */}
+                <div className="space-y-4 border-t pt-4 border-gray-200">
+                    <div className="flex gap-4">
+                        <span className="w-40 font-bold text-gray-700">Marque</span>
                         {isShowing ? (
-                            <span className="text-gray-500"></span>
+                            <span className="text-gray-600">{product.brand}</span>
                         ) : (
                             <TransparentInput
                                 id="brand"
@@ -122,15 +130,15 @@ export default function ProductPageLayout({
                                 onChange={handleChange}
                                 className="w-full"
                                 type="text"
-                                placeholder="La marque de votre produit"
+                                placeholder="Marque"
                             />
                         )}
                     </div>
 
-                    <div className="flex">
-                        <h3 className="font-medium w-1/6 mr-4">Quantité en stock</h3>
+                    <div className="flex gap-4">
+                        <span className="w-40 font-bold text-gray-700">Stock</span>
                         {isShowing ? (
-                            <span className="text-gray-500"></span>
+                            <span className="text-gray-600">{product.stock_quantity}</span>
                         ) : (
                             <TransparentInput
                                 id="stock_quantity"
@@ -139,116 +147,72 @@ export default function ProductPageLayout({
                                 onChange={handleChange}
                                 className="w-full"
                                 type="number"
-                                placeholder="Le nombre de stock du produit"
+                                placeholder="Quantité"
                             />
                         )}
                     </div>
 
-                    {category_id === "0" && getClothings.map(({ id, label, name, placeholder }) => (
-                        <div key={id} className="flex">
-                            <h3 className="font-medium w-1/6 mr-4">{label}</h3>
-                            {isShowing ? (
-                                <span className="text-gray-500"></span>
-                            ) : (
-                                <TransparentInput
-                                    id={name}
-                                    name={name}
-                                    value={data[name]}
-                                    onChange={handleChange}
-                                    className="w-full"
-                                    type="text"
-                                    placeholder={placeholder}
-                                />
-                            )}
-                        </div>
-                    ))}
+                    {/* Détails dynamiques */}
+                    {Array.isArray(productDetails) &&
+                        productDetails.map(({ id, label, name, placeholder, value }) =>
+                            value !== "" ? (
+                                <div key={id} className="flex gap-4">
+                                    <span className="w-40 font-bold text-gray-700">{label}</span>
+                                    {isShowing ? (
+                                        <span className="text-gray-600">{value}</span>
+                                    ) : (
+                                        <TransparentInput
+                                            id={name}
+                                            name={name}
+                                            value={data[name]}
+                                            onChange={handleChange}
+                                            className="w-full"
+                                            type="text"
+                                            placeholder={placeholder}
+                                        />
+                                    )}
+                                </div>
+                            ) : null
+                        )}
+                </div>
 
-                    {category_id === "1" && getElectronics.map(({ id, label, name, placeholder }, index) => (
-
-                        <div key={id} className="flex">
-                            <h3 className="font-medium w-1/6 mr-4">{label}</h3>
-                            {isShowing ? (
-                                <span className="text-gray-500">{productDetails}</span>
-                            ) : (
-                                <TransparentInput
-                                    id={name}
-                                    name={name}
-                                    value={data[name]}
-                                    onChange={handleChange}
-                                    className="w-full"
-                                    type="text"
-                                    placeholder={placeholder}
-                                />
-                            )}
-                        </div>
-                    ))}
-
-                    {category_id === "2" && getAccessories.map(({ id, label, name, placeholder }) => (
-                        <div key={id} className="flex">
-                            <h3 className="font-medium w-1/6 mr-4">{label}</h3>
-                            {isShowing ? (
-                                <span className="text-gray-500"></span>
-                            ) : (
-                                <TransparentInput
-                                    id={name}
-                                    name={name}
-                                    value={data[name]}
-                                    onChange={handleChange}
-                                    className="w-full"
-                                    type="text"
-                                    placeholder={placeholder}
-                                />
-                            )}
-                        </div>
-                    ))}
-
-                    {/* Similar for other categories */}
-                    {category_id === "3" && homeFurniture.map(({ id, label, name, placeholder }) => (
-                        <div key={id} className="flex">
-                            <h3 className="font-medium w-1/6 mr-4">{label}</h3>
-                            {isShowing ? (
-                                <span className="text-gray-500"></span>
-                            ) : (
-                                <TransparentInput
-                                    id={name}
-                                    name={name}
-                                    value={data[name]}
-                                    onChange={handleChange}
-                                    className="w-full"
-                                    type="text"
-                                    placeholder={placeholder}
-                                />
-                            )}
-                        </div>
-                    ))}
-
-                    {/* Add similar sections for other categories as needed */}
-
-                    <SeeMore.Button>
-                        Voir plus
-                    </SeeMore.Button>
-                </SeeMore>
-
-                <div className="flex flex-1 flex-col">
-                    <h2 className="uppercase font-bold mb-5">
-                        à propos de l'article
+                {/* Description */}
+                <div className="border-t pt-6 border-gray-200">
+                    <h2 className="uppercase text-sm font-black text-gray-800 mb-2">
+                        À propos de l'article
                     </h2>
                     {isShowing ? (
-                        <span className="text-gray-500"></span>
+                        <p className="text-gray-600">{product.description}</p>
                     ) : (
                         <TransparentInput
                             id="description"
                             name="description"
                             value={data.description}
                             onChange={handleChange}
-                            className="h-full"
+                            className="w-full"
                             type="textarea"
-                            placeholder="La description de votre produit"
+                            placeholder="Description"
                         />
                     )}
                 </div>
+
+                {/* Ajouter au panier */}
+                {isShowing && (
+                    <div className="flex justify-evenly">
+                        <PrimaryButton className="bg-yellow-400 hover:bg-yellow-500 text-black
+                        w-2/5 rounded-md justify-center py-3 shadow-md transform transition-all duration-300 hover:scale-105">
+                            Ajouter au panier
+                        </PrimaryButton>
+
+                        <PrimaryButton className="bg-orange-500 w-2/5 hover:bg-orange-600
+                        text-white shadow-md justify-center transform transition-all duration-300 hover:scale-105 rounded-md">
+                            Payer
+                        </PrimaryButton>
+                    </div>
+                )}
             </div>
         </div>
     );
 }
+
 

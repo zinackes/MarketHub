@@ -1,5 +1,5 @@
 // Renvoie le formulaire produit de base avec les données passées
-export const getProductForm = (product = {}) => ({
+export const getProductData = (product = {}) => ({
     name: product?.variant.name || '',
     slug: product?.variant.slug || '',
     color: product?.variant.color || '',
@@ -10,52 +10,26 @@ export const getProductForm = (product = {}) => ({
     category_id: product?.product.category_id || '',
 });
 
-export const getProductDetailForm = (productDetails = {}) => ([
-    {
-        size: productDetails?.size || '',
-        material: productDetails?.material || '',
-        gender: productDetails?.gender || '',
-        season: productDetails?.season || '',
-        type: productDetails?.type || '',
-    },
-    {
-        model: productDetails?.model || '',
-        condition: productDetails?.condition || '',
-        warranty: productDetails?.warranty || '',
-        capacity: productDetails?.capacity || '',
-        device_type: productDetails?.device_type || '',
-    },
-    {
-        type: productDetails?.type || '',
-        material: productDetails?.material || '',
-    },
-    {
-        type: productDetails?.type || '',
-        material: productDetails?.material || '',
-        dimensions: productDetails?.dimensions || '',
-        condition: productDetails?.condition || '',
-    },
-    {
-        age_recommendation: productDetails?.age_recommendation || '',
-        toy_type: productDetails?.toy_type || '',
-        material: productDetails?.material || '',
-        dimensions: productDetails?.dimensions || '',
-        gender: productDetails?.gender || '',
-    },
-    {
-        product_type: productDetails?.product_type || '',
-        volume: productDetails?.volume || '',
-        main_ingredients: productDetails?.main_ingredients || '',
-        target: productDetails?.target || '',
-    },
-    {
-        food_type: productDetails?.food_type || '',
-        weight_volume: productDetails?.weight_volume || '',
-        expiration_date: productDetails?.expiration_date || '',
-        is_organic: productDetails?.is_organic || '',
-        allergens: productDetails?.allergens || '',
+export const getProductDetailData = (productDetails, category_id = {}) => {
+    switch(category_id) {
+        case 1:
+            return getElectronics(productDetails);
+        case 2:
+            return getClothings(productDetails);
+        case 3:
+            return getAccessories(productDetails);
+        case 4:
+            return getHomeFurnitures(productDetails);
+        case 5:
+            return getToys(productDetails);
+        case 6:
+            return getBeautyCares(productDetails);
+        case 7:
+            return getFoods(productDetails);
+        default:
+            return [];
     }
-]);
+};
 
 
 export const getElectronics = (productDetails = {}) => ([
@@ -158,112 +132,128 @@ export const getAccessories = (productDetails = {}) => ([
     },
 ]);
 
-export const homeFurniture = [
+export const getHomeFurnitures = (productDetails = {}) => ( [
     {
         id: 0,
         label: "Type",
         name: "type",
         placeholder: "Exemple : Canapé, Bureau, Chaise, Table basse, Bibliothèque...",
+        value: productDetails?.type || ''
     },
     {
         id: 1,
         label: "Matière",
         name: "material",
         placeholder: "Exemple : Bois, Métal, Cuir, Tissu, Verre...",
+        value: productDetails?.material || ''
     },
     {
         id: 2,
         label: "Dimensions",
         name: "dimensions",
         placeholder: "Exemple : 200 cm x 90 cm x 80 cm (longueur x largeur x hauteur)",
+        value: productDetails?.dimensions || ''
     },
     {
         id: 3,
         label: "État",
         name: "condition",
         placeholder: "Neuf, Reconditionné, Usagé, Bon état...",
+        value: productDetails?.condition || ''
     },
-];
+]);
 
-export const toys = [
+export const getToys = (productDetails = {}) => ( [
     {
         id: 0,
         label: "Âge recommandé",
         name: "age_recommendation",
         placeholder: "Exemple : 3 ans et plus, 6-12 ans, dès la naissance...",
+        value: productDetails?.age_recommendation || ''
     },
     {
         id: 1,
         label: "Type de jouet",
         name: "toy_type",
         placeholder: "Exemple : Puzzle, Figurine, Jeu de société, Peluche...",
+        value: productDetails?.toy_type || ''
     },
     {
         id: 2,
         label: "Matière",
         name: "material",
         placeholder: "Exemple : Bois, Plastique, Tissu, Métal...",
+        value: productDetails?.material || ''
     },
     {
         id: 3,
         label: "Dimensions",
         name: "dimensions",
         placeholder: "Exemple : 30 cm x 20 cm x 15 cm (L x l x h)",
+        value: productDetails?.dimensions || ''
     },
     {
         id: 4,
         label: "Genre",
         name: "gender",
         placeholder: "Indiquez le genre si nécessaire (fille, garçon, unisexe)",
+        value: productDetails?.gender || ''
     },
-];
+]);
 
 
-export const beautyProducts = [
+export const getBeautyCares = (productDetails = {}) => ([
     {
         id: 0,
         label: "Type de produit",
         name: "product_type",
         placeholder: "Exemple : Crème hydratante, Sérum, Shampoing, Démaquillant...",
+        value: productDetails?.product_type || ''
     },
     {
         id: 1,
         label: "Volume",
         name: "volume",
         placeholder: "Exemple : 50 ml, 200 ml, 1 L...",
+        value: productDetails?.volume || ''
     },
     {
         id: 2,
         label: "Ingrédients principaux",
         name: "main_ingredients",
         placeholder: "Exemple : Aloe vera, Acide hyaluronique, Huile d’argan...",
+        value: productDetails?.main_ingredients || ''
     },
     {
         id: 3,
         label: "Cible",
         name: "target",
         placeholder: "Exemple : Peau sensible, Cheveux secs, Tous types de peaux...",
+        value: productDetails?.target || ''
     },
-];
+]);
 
-export const foodProducts = [
+export const getFoods = (productDetails = {}) => ([
     {
         id: 0,
         label: "Type d'aliment",
         name: "food_type",
         placeholder: "Exemple : Biscuits, Jus de fruit, Pâtes, Fromage...",
+        value: productDetails?.food_type || ''
     },
     {
         id: 1,
         label: "Poids / Volume",
         name: "weight_volume",
         placeholder: "Exemple : 500 g, 1 kg, 1 L...",
+        value: productDetails?.weight_volume || ''
     },
     {
         id: 2,
         label: "Date d'expiration",
         name: "expiration_date",
         placeholder: "JJ/MM/AAAA",
+        value: productDetails?.expiration_date || ''
     },
     {
         id: 3,
@@ -271,11 +261,13 @@ export const foodProducts = [
         name: "is_organic",
         placeholder: "Cochez si le produit est bio",
         type: "checkbox", // utile si tu veux afficher une case à cocher
+        value: productDetails?.is_organic || ''
     },
     {
         id: 4,
         label: "Allergènes",
         name: "allergens",
         placeholder: "Exemple : Gluten, Lactose, Arachides...",
+        value: productDetails?.allergens || ''
     },
-];
+]);

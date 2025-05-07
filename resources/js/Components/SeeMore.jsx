@@ -33,7 +33,7 @@ const SeeMore = ({children, className, maxHeight}) => {
     return (
         <SeeMoreContext.Provider value={{ open, handleClick, shouldTruncate }}>
             <div
-                className={`relative overflow-hidden transition-all pb-6 duration-300 ease-in-out ${className}`}
+                className={`relative overflow-hidden transition-all duration-300 ease-in-out ${className}`}
                 ref={infoRef}
                 style={{
                     maxHeight: !open ? `${maxHeight}px` : `${infoRef.current?.scrollHeight}px`
@@ -49,7 +49,7 @@ const Button = ({ children }) => {
 
     const {handleClick, open, shouldTruncate} = useContext(SeeMoreContext);
 
-    if (!shouldTruncate) return null;
+    if (shouldTruncate) return null;
 
     return (
         <button

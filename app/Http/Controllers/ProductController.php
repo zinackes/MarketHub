@@ -118,7 +118,7 @@ class ProductController extends Controller
 
 
         return Inertia::render('Products/ProductPageCreation', [
-            'category_id' => $id,
+            'category_id' => (int)$id,
             'slug' => $slug,
             'product' => null,
             'productDetails' => null,
